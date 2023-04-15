@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+  <form class='form_numbers' action="/resaults" method="POST">
+    <div class="block">
+      <label>Введите первое число:</label>
+      <input class='form_submit' name='number_1_n' type="number" placeholder="0123456789">
+    </div>
+    <div class="block">
+      <label>Введите второе число:</label>
+      <input class='form_submit' name='number_2_n' type="number" placeholder="0123456789">
+    </div>
+    <input class='form_submit' value="Проверить" type="submit">
+  </form>
+  <p>Вернуться на <a href="/">главную</a> страницу</p>
+</div>
+{% endblock %}

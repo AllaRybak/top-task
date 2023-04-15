@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+  {% block title -%}
+  {% if title %}
+    <title>Домашнее задание - {{title}}</title>
+  {% else %}
+    <title>Домашнее задание</title>
+  {% endif %}
+  {% endblock %}
+</head>
+<body>
+    {% block body%}
+
+    {% endblock%}
+</body>
+</html>
