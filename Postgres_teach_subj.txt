@@ -1,0 +1,54 @@
+-- CREATE TABLE faculty(
+-- 	id SERIAL PRIMARY KEY,
+-- 	name VARCHAR(20)
+-- );
+
+-- CREATE TABLE subject(
+-- 	id SERIAL PRIMARY KEY,
+-- 	name VARCHAR(40)
+-- );
+
+-- CREATE TABLE teacher(
+-- 	id SERIAL PRIMARY KEY,
+-- 	name VARCHAR(50),
+-- 	mail VARCHAR(40),
+-- 	salary FLOAT,
+-- 	faculty_id INTEGER REFERENCES faculty(id)
+-- );
+
+-- CREATE TABLE teacher_to_subject (
+--     teacher_id INTEGER REFERENCES teacher(id),
+--     subject_id INTEGER REFERENCES subject(id),
+--     PRIMARY KEY (teacher_id, subject_id)
+-- );
+
+-- INSERT INTO faculty (name)
+-- VALUES ('Исторический'), ('Математический');
+
+
+-- INSERT INTO subject (name)
+-- 	VALUES ('История древнего Рима'), ('Новейшая мировая история'), ('Основы истории'), 
+-- 	('Алгебра'), ('Функциональный анализ'), ('Математический анализ'), ('ЛВП');
+
+-- INSERT INTO teacher (name, mail, salary, faculty_id)
+-- VALUES ('Древний', 'dr@history.com', 50000.5, 1), 
+-- 	('Иванов', 'ii@history.com', 50000.5, 1),
+-- 	('Петров', 'pt@history.com', 50300.5, 1),
+-- 	('Сидоров', 'sr@history.com', 40000.6, 1),
+-- 	('Семенова', 'sd@history.com', 34000.5, 1),
+-- 	('Давыдова', 'dr@history.com', 56000.5, 1),
+-- 	('Коши', 'kk@math.com', 70000.5, 2),
+-- 	('Фихтенгольц', 'ff@math.com', 76000.5, 2),
+-- 	('Ферма', 'df@math.com', 50000.5, 2);
+
+
+-- INSERT INTO teacher_to_subject (teacher_id, subject_id)
+-- 	VALUES (1, 1), (2, 1), (3, 2), (4, 3), (5, 1), (6, 2),
+-- 	(7, 5), (7, 6), (8, 6), (8, 7), (9, 4);
+
+SELECT teacher.name, subject.name 
+	FROM teacher 
+	INNER JOIN teacher_to_subject 
+	ON teacher.id = teacher_id
+	INNER JOIN subject
+	ON subject.id = subject_id;
