@@ -1,0 +1,17 @@
+def str_cont(A, B):
+    res = []
+    b1 = list(B)
+    k = 0
+    s = 0
+    for i in range(len(B) // len(A)):
+        for i in A:
+            if i in b1:
+                res.append(i)
+                b1.remove(i)
+                k += 1
+        if k < len(A):
+            k = 0
+        else:
+            s += 1
+            k = 0
+    return s
