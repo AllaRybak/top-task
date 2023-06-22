@@ -1,0 +1,78 @@
+urls.py **********************************
+
+	urlpatterns = [
+	    path("admin/", admin.site.urls),
+	    path('accounts/', include('django.contrib.auth.urls')),
+	    path('accounts/', include('userss.urls')),
+	    path('', include('pages.urls')),
+	    path('books/', include('books.urls')),
+	    path('employers/', include('employer.urls')),
+	] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+models.py **********************************
+
+	class Employer(models.Model):
+	    id = models.UUIDField(
+	        primary_key=True,
+	        default=uuid.uuid4,
+	        editable=False
+	    )
+	    name = models.CharField(max_length=100, default=None)
+	    salary = models.DecimalField(max_digits=6, decimal_places=2)
+	    job = models.CharField(max_length=100)
+	    avatar = models.ImageField(upload_to='avatar/', blank=True)
+	
+	    def __str__(self):
+	        return self.name
+	
+	    def get_absolute_url(self):
+	        return reverse('employer_detail', args=[str(self.id)]
+
+views.py **********************************
+
+	from django.views.generic import ListView, DetailView
+	from .models import Employer
+	
+	
+	class EmployerListView(ListView):
+	    model = Employer
+	    template_name = 'employer/employer_list.html'
+	    context_object_name = 'employer_list'
+	
+	
+	class EmployerDetailView(DetailView):
+	    model = Employer
+	    template_name = 'employer'
+
+
+employer_list.html **********************************
+
+	{% extends 'base.html' %}
+	
+	{% block content %}
+	
+	{% for empl in employer_list %}
+	
+	        <ul style="font-family: 'Arial', sans-serif">
+	            {% if empl.avatar %}
+	            <img src="{{ empl.avatar.url }}" alt="{{empl.name}}" width="50" height="35" style="background-size: auto">
+	            {% endif %}
+	            <b>{{ empl.name }}</b> {{ empl.job }}, {{ empl.salary }} $
+	        </ul>
+	
+	{% endfor %}
+	
+	{% endblock content %}
+
+admin.py **********************************
+
+	from django.contrib import admin
+	from .models import Employer
+	
+	
+	class EmployerAdmin(admin.ModelAdmin):
+	    list_display = ('name', 'job', 'salary',)
+	
+	
+	admin.site.register(Employer, EmployerAdmin)
